@@ -10,6 +10,7 @@ import {
 import "./globals.css";
 import SmoothScrollProvider from "@/provider/SmoothScrollProvider";
 import Header from "@/components/mvpblocks/Header";
+import Footer from "@/components/Footer";
  
 const fontSans = Inter({
   subsets: ["latin"],
@@ -51,6 +52,7 @@ export default function RootLayout({
         <SmoothScrollProvider>
           <Header />
           {children}
+          <Footer/>
         </SmoothScrollProvider>
       </body>
     </html>
