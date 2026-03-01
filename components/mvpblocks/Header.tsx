@@ -25,7 +25,7 @@ const navItems: NavItem[] = [
     ],
   },
   { name: 'Studio', href: '/studio' },
-  { name: 'Journal', href: '/journal' },
+  { name: 'Case Study', href: '/case-study' },
   { name: 'Contact', href: '/contact' },
 ];
 
