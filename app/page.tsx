@@ -1,6 +1,10 @@
+import FeaturedProjects from "@/components/FeaturedProjects";
 import Hero from "@/components/Hero";
+import Manifesto from "@/components/Manifesto";
+import PressRecognition from "@/components/PressRecognition";
 import Process from "@/components/Process";
 import { StudioMetrics } from "@/components/StudioMetics";
+import StudioTeaser from "@/components/StudioTeaser";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
@@ -8,8 +12,12 @@ export default function Home() {
   return (
  <main  > 
  <Hero/>
+ <Manifesto/>
+ <FeaturedProjects/>
  <Process/>
  <StudioMetrics/>
+ <PressRecognition/>
+ <StudioTeaser/>
  <section className="py-20 px-6 lg:px-12">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-cormorant text-3xl md:text-4xl lg:text-5xl font-medium mb-6">

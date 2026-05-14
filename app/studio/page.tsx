@@ -15,7 +15,7 @@ const team = [
     name: 'Priya Sharma',
     role: 'Creative Director',
     bio: 'Former architect turned interior poet. Priya speaks in light, silence, and the weight of a good material.',
-    src: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=600&q=85',
+ src: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&q=85',
   },
   {
     name: 'Karan Bose',

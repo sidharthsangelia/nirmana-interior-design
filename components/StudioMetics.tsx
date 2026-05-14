@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import { NumberTicker } from "./ui/number-ticker";
- 
 
 const metrics = [
   {
@@ -12,7 +11,7 @@ const metrics = [
     prefix: "",
     decimalPlaces: 0,
     label: "Years of Practice",
-    subtext: "Not built overnight. Built right.",
+    subtext: "Earned through discipline. Not handed to us.",
   },
   {
     value: 200,
@@ -20,7 +19,7 @@ const metrics = [
     prefix: "",
     decimalPlaces: 0,
     label: "Spaces Completed",
-    subtext: "Residences, studios, and institutions — each one earned.",
+    subtext: "Residences, studios, institutions. Each one a statement.",
   },
   {
     value: 98,
@@ -28,7 +27,7 @@ const metrics = [
     prefix: "",
     decimalPlaces: 0,
     label: "Client Retention",
-    subtext: "They don't leave. They come back.",
+    subtext: "They come back. Every time.",
   },
   {
     value: 0,
@@ -36,7 +35,7 @@ const metrics = [
     prefix: "",
     decimalPlaces: 0,
     label: "Compromises Made",
-    subtext: "On quality. On vision. On material truth.",
+    subtext: "On quality. On vision. On craft.",
   },
 ];
 
@@ -82,23 +81,43 @@ export function StudioMetrics() {
       ref={sectionRef}
       className="relative bg-primary text-primary-foreground overflow-hidden"
       style={{
-        marginTop: "0",
-        paddingTop: "8rem",
-        paddingBottom: "7rem",
-        position: "relative",
+        paddingTop: "7rem",
+        paddingBottom: "6rem",
       }}
     >
       {/* Top convex arch */}
-      <div className="absolute -top-px left-0 w-full overflow-hidden leading-none" style={{ height: "80px" }}>
-        <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="absolute bottom-0 left-0 w-full h-full">
-          <path d="M0,80 Q720,-40 1440,80 L1440,80 L0,80 Z" fill="var(--primary)" />
+      <div
+        className="absolute -top-px left-0 w-full overflow-hidden leading-none"
+        style={{ height: "80px" }}
+      >
+        <svg
+          viewBox="0 0 1440 80"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          className="absolute bottom-0 left-0 w-full h-full"
+        >
+          <path
+            d="M0,80 Q720,-40 1440,80 L1440,80 L0,80 Z"
+            fill="var(--primary)"
+          />
         </svg>
       </div>
 
       {/* Bottom convex arch */}
-      <div className="absolute -bottom-px left-0 w-full overflow-hidden leading-none" style={{ height: "80px" }}>
-        <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="absolute top-0 left-0 w-full h-full">
-          <path d="M0,0 Q720,120 1440,0 L1440,0 L0,0 Z" fill="var(--primary)" />
+      <div
+        className="absolute -bottom-px left-0 w-full overflow-hidden leading-none"
+        style={{ height: "80px" }}
+      >
+        <svg
+          viewBox="0 0 1440 80"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          className="absolute top-0 left-0 w-full h-full"
+        >
+          <path
+            d="M0,0 Q720,120 1440,0 L1440,0 L0,0 Z"
+            fill="var(--primary)"
+          />
         </svg>
       </div>
 
@@ -114,8 +133,12 @@ export function StudioMetrics() {
 
       {/* Decorative background numeral */}
       <div
-        className="pointer-events-none absolute -right-8 top-1/2 -translate-y-1/2 select-none text-[20rem] font-bold leading-none opacity-[0.03]"
-        style={{ fontFamily: "var(--font-cormorant)" }}
+        className="pointer-events-none absolute -right-4 sm:-right-8 top-1/2 -translate-y-1/2 select-none leading-none opacity-[0.03]"
+        style={{
+          fontFamily: "var(--font-cormorant)",
+          fontSize: "clamp(10rem, 28vw, 20rem)",
+          fontWeight: 700,
+        }}
         aria-hidden="true"
       >
         N
@@ -128,21 +151,25 @@ export function StudioMetrics() {
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-20 md:mb-24"
+          className="mb-14 md:mb-20"
         >
           <p
-            className="mb-4 text-xs uppercase tracking-[0.25em] opacity-50"
+            className="mb-4 text-[9px] sm:text-xs uppercase tracking-[0.28em] opacity-50"
             style={{ fontFamily: "var(--font-sans)" }}
           >
-            Studio in Numbers
+            Numbers Don't Lie
           </p>
           <h2
-            className="max-w-xl text-4xl md:text-5xl leading-[1.1] font-light"
-            style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic" }}
+            className="max-w-sm sm:max-w-xl leading-[1.1] font-light"
+            style={{
+              fontFamily: "var(--font-cormorant)",
+              fontStyle: "italic",
+              fontSize: "clamp(2rem, 5vw, 3.2rem)",
+            }}
           >
-            The Record Speaks.
+            Twelve Years.
             <br />
-            We Don't Need To.
+            Zero Shortcuts.
           </h2>
         </motion.div>
 
@@ -151,7 +178,7 @@ export function StudioMetrics() {
           variants={lineVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="mb-0 h-px w-full origin-left bg-primary-foreground opacity-20"
+          className="h-px w-full origin-left bg-primary-foreground opacity-20"
         />
 
         {/* Metrics grid */}
@@ -159,49 +186,59 @@ export function StudioMetrics() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 divide-y divide-primary-foreground/10 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4"
+          className="grid grid-cols-2 divide-y divide-primary-foreground/10 sm:divide-y-0 lg:grid-cols-4"
         >
           {metrics.map((metric, index) => (
             <motion.div
               key={metric.label}
               variants={itemVariants}
-              className="group relative px-0 py-12 sm:px-8 sm:py-14 lg:px-10"
+              className="group relative py-10 px-4 sm:px-8 sm:py-14 lg:px-10"
             >
-              {/* Vertical dividers between columns */}
+              {/* Vertical dividers — desktop only */}
               {index !== 0 && (
-                <div className="absolute left-0 top-0 hidden h-full w-px bg-primary-foreground/10 sm:block" />
+                <div className="absolute left-0 top-0 hidden h-full w-px bg-primary-foreground/10 lg:block" />
+              )}
+
+              {/* Horizontal divider for bottom row on 2-col mobile grid */}
+              {index >= 2 && (
+                <div className="absolute top-0 left-0 w-full h-px bg-primary-foreground/10 sm:hidden" />
+              )}
+
+              {/* Vertical divider for right column on 2-col mobile grid */}
+              {index % 2 !== 0 && (
+                <div className="absolute left-0 top-0 h-full w-px bg-primary-foreground/10 lg:hidden" />
               )}
 
               {/* Number */}
-              <div className="mb-5 flex items-end gap-1">
+              <div className="mb-4 sm:mb-5 flex items-end gap-1">
                 {metric.prefix && (
                   <span
-                    className="mb-1 text-4xl font-light opacity-60"
+                    className="mb-1 text-2xl sm:text-4xl font-light opacity-60"
                     style={{ fontFamily: "var(--font-cormorant)" }}
                   >
                     {metric.prefix}
                   </span>
                 )}
                 <div
-                  className="text-6xl md:text-7xl font-light leading-none tracking-tight"
                   style={{ fontFamily: "var(--font-cormorant)" }}
+                  className="leading-none tracking-tight"
                 >
                   {isInView ? (
                     <NumberTicker
                       value={metric.value}
                       decimalPlaces={metric.decimalPlaces}
-                      className="text-6xl md:text-7xl font-light leading-none tracking-tight whitespace-pre-wrap text-primary-foreground"
+                      className="text-5xl sm:text-6xl md:text-7xl font-light leading-none tracking-tight whitespace-pre-wrap text-primary-foreground"
                       style={{ fontFamily: "var(--font-cormorant)" }}
                     />
                   ) : (
-                    <span className="text-6xl md:text-7xl font-light leading-none tracking-tight">
+                    <span className="text-5xl sm:text-6xl md:text-7xl font-light leading-none tracking-tight">
                       0
                     </span>
                   )}
                 </div>
                 {metric.suffix && (
                   <span
-                    className="mb-1 text-4xl font-light"
+                    className="mb-1 text-2xl sm:text-4xl font-light"
                     style={{ fontFamily: "var(--font-cormorant)" }}
                   >
                     {metric.suffix}
@@ -211,7 +248,7 @@ export function StudioMetrics() {
 
               {/* Label */}
               <p
-                className="mb-3 text-sm uppercase tracking-[0.2em] opacity-50"
+                className="mb-3 text-[9px] sm:text-xs uppercase tracking-[0.2em] opacity-50"
                 style={{ fontFamily: "var(--font-sans)" }}
               >
                 {metric.label}
@@ -219,9 +256,9 @@ export function StudioMetrics() {
 
               {/* Subtext with animated reveal line */}
               <div className="relative">
-                <div className="mb-3 h-px w-8 bg-primary-foreground opacity-30 transition-all duration-500 group-hover:w-16 group-hover:opacity-60" />
+                <div className="mb-3 h-px w-6 sm:w-8 bg-primary-foreground opacity-30 transition-all duration-500 group-hover:w-14 sm:group-hover:w-16 group-hover:opacity-60" />
                 <p
-                  className="text-sm leading-relaxed opacity-40 group-hover:opacity-60 transition-opacity duration-500"
+                  className="text-[11px] sm:text-sm leading-relaxed opacity-40 group-hover:opacity-60 transition-opacity duration-500"
                   style={{ fontFamily: "var(--font-sans)" }}
                 >
                   {metric.subtext}
@@ -244,10 +281,10 @@ export function StudioMetrics() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 1, delay: 1, ease: "easeOut" }}
-          className="mt-12 text-right text-xs uppercase tracking-[0.25em] opacity-30"
+          className="mt-10 sm:mt-12 text-right text-[9px] sm:text-xs uppercase tracking-[0.25em] opacity-30"
           style={{ fontFamily: "var(--font-sans)" }}
         >
-          New Delhi, India — Est. 2013
+          New Delhi, India · Est. 2013
         </motion.p>
       </div>
     </section>
