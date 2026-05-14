@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -87,7 +88,9 @@ export default function Hero() {
             className="absolute inset-0 -translate-x-full group-hover:translate-x-0
               bg-white/8 transition-transform duration-500 ease-out"
           />
-          <span className="relative">Explore Our Work</span>
+          <Link className="relative" href="/work">
+            Explore Our Work
+          </Link>
         </motion.button>
       </div>
 

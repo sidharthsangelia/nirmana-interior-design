@@ -4,6 +4,18 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
+const contactDetails = [
+  { label: 'Email', value: 'hello@nirmanastudio.com', href: 'mailto:hello@nirmanastudio.com' },
+  { label: 'Phone', value: '+91 12345 67890', href: 'tel:+911234567890' },
+  { label: 'Studio', value: 'Mehrauli, New Delhi — 110030', href: '#' },
+];
+
+const notices = [
+  'We respond within 48 hours.',
+  'We take on very few projects each year.',
+  'Every enquiry is read by the principals.',
+];
+
 export default function ContactPage() {
   const [form, setForm] = useState({
     name: '',
@@ -21,197 +33,248 @@ export default function ContactPage() {
 
   return (
     <main style={{ backgroundColor: 'var(--background)' }}>
-      <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
+      {/* ─── Mobile: stacked. Desktop: side-by-side ────────────────── */}
+      <div className="min-h-screen flex flex-col lg:grid lg:grid-cols-2">
 
-        {/* Left — Statement */}
-        <div
-          className="relative flex flex-col justify-between px-10 py-32 lg:px-16 lg:py-40"
-          style={{ backgroundColor: 'var(--foreground)', borderRight: '1px solid rgba(255,255,255,0.06)' }}
+        {/* ── Left — Dark statement panel ──────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="relative flex flex-col justify-between px-8 py-20 sm:px-12 lg:px-16 lg:py-40"
+          style={{
+            backgroundColor: 'var(--foreground)',
+            borderBottom: '1px solid rgba(255,255,255,0.06)',
+          }}
         >
+          {/* Top content */}
           <div className="flex flex-col gap-8">
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="font-sans text-[9px] tracking-[0.34em] uppercase"
-              style={{ color: 'color-mix(in oklch, var(--background) 40%, transparent)' }}
+              transition={{ delay: 0.25 }}
+              className="font-sans text-[9px] tracking-[0.36em] uppercase"
+              style={{ color: 'rgba(255,255,255,0.28)' }}
             >
               Begin here
             </motion.span>
 
             <motion.h1
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="font-cormorant leading-[0.88]"
-              style={{ color: 'var(--background)', fontWeight: 500, fontSize: 'clamp(52px, 6.5vw, 100px)' }}
+              transition={{ delay: 0.38, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="font-cormorant leading-[0.9]"
+              style={{
+                color: 'var(--background)',
+                fontWeight: 500,
+                fontSize: 'clamp(46px, 6vw, 96px)',
+              }}
             >
-              Your next<br />
-              space<br />
-              <em>starts with</em><br />
+              Your next
+              <br />
+              space
+              <br />
+              <em>starts with</em>
+              <br />
               a conversation.
             </motion.h1>
+
+            {/* Small notices */}
+            <motion.ul
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.55 }}
+              className="flex flex-col gap-2 mt-2"
+            >
+              {notices.map((n) => (
+                <li key={n} className="flex items-center gap-3">
+                  <span
+                    style={{ width: 4, height: 4, borderRadius: '50%', backgroundColor: 'var(--accent)', flexShrink: 0 }}
+                  />
+                  <span
+                    className="font-cormorant italic text-[14px]"
+                    style={{ color: 'rgba(255,255,255,0.38)' }}
+                  >
+                    {n}
+                  </span>
+                </li>
+              ))}
+            </motion.ul>
           </div>
 
+          {/* Bottom: contact details */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="flex flex-col gap-4"
+            transition={{ delay: 0.65 }}
+            className="flex flex-col gap-6 mt-16 lg:mt-0"
           >
-            <div
-              className="h-px w-10 mb-4"
-              style={{ backgroundColor: 'var(--accent)' }}
-            />
-            {[
-              { label: 'Email', value: 'hello@nirmanastudio.com', href: 'mailto:hello@nirmanastudio.com' },
-              { label: 'Phone', value: '+91 12345 67890', href: 'tel:+911234567890' },
-              { label: 'Studio', value: 'Mehrauli, New Delhi — 110030', href: '#' },
-            ].map((item) => (
-              <div key={item.label} className="flex flex-col gap-0.5">
+            <div style={{ width: 40, height: 1, backgroundColor: 'var(--accent)', opacity: 0.7 }} />
+            {contactDetails.map((item) => (
+              <div key={item.label} className="flex flex-col gap-1">
                 <span
                   className="font-sans text-[8px] tracking-[0.3em] uppercase"
-                  style={{ color: 'color-mix(in oklch, var(--background) 30%, transparent)' }}
+                  style={{ color: 'rgba(255,255,255,0.25)' }}
                 >
                   {item.label}
                 </span>
                 <a
                   href={item.href}
-                  className="font-cormorant text-[17px] tracking-wide group inline-flex items-center gap-1 transition-opacity duration-200 hover:opacity-50"
+                  className="font-cormorant text-[17px] inline-flex items-center gap-1.5 group transition-opacity duration-200 hover:opacity-50"
                   style={{ color: 'var(--background)', fontWeight: 400 }}
                 >
                   {item.value}
-                  <ArrowUpRight className="h-3 w-3 opacity-40 group-hover:opacity-100 transition-opacity" />
+                  {item.href !== '#' && (
+                    <ArrowUpRight
+                      className="h-3 w-3 opacity-30 group-hover:opacity-80 transition-opacity"
+                    />
+                  )}
                 </a>
               </div>
             ))}
           </motion.div>
-        </div>
+        </motion.div>
 
-        {/* Right — Form */}
-        <div className="flex flex-col justify-center px-10 py-32 lg:px-16 lg:py-40">
+        {/* ── Right — Form ─────────────────────────────────────────── */}
+        <div
+          className="flex flex-col justify-center px-8 py-20 sm:px-12 lg:px-16 lg:py-40"
+          style={{ borderLeft: '1px solid var(--border)' }}
+        >
           {sent ? (
+            /* ── Success state ─────────────────────────────────────── */
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex flex-col gap-5"
+              transition={{ duration: 0.8 }}
+              className="flex flex-col gap-6 max-w-md"
             >
-              <div className="h-px w-12" style={{ backgroundColor: 'var(--accent)' }} />
+              <div style={{ width: 40, height: 1, backgroundColor: 'var(--accent)' }} />
               <h2
-                className="font-cormorant text-4xl md:text-5xl"
-                style={{ color: 'var(--foreground)', fontWeight: 500 }}
+                className="font-cormorant leading-[1.0]"
+                style={{ color: 'var(--foreground)', fontWeight: 500, fontSize: 'clamp(38px, 4vw, 60px)' }}
               >
-                We'll be<br /><em>in touch.</em>
+                We'll be
+                <br />
+                <em>in touch.</em>
               </h2>
               <p
                 className="font-cormorant text-[17px] italic leading-relaxed"
                 style={{ color: 'var(--muted-foreground)' }}
               >
-                Expect a response within 48 hours. Good things take a little time.
+                Expect a response within 48 hours.
+                <br />
+                Good things take a little time.
               </p>
+              <button
+                onClick={() => { setSent(false); setForm({ name: '', email: '', projectType: '', budget: '', message: '' }); }}
+                className="font-sans text-[9px] tracking-[0.28em] uppercase inline-flex items-center gap-3 mt-2 group"
+                style={{ color: 'var(--muted-foreground)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+              >
+                Send another
+                <span
+                  className="block transition-all duration-400 group-hover:w-8"
+                  style={{ width: 24, height: 1, backgroundColor: 'var(--muted-foreground)' }}
+                />
+              </button>
             </motion.div>
           ) : (
-            <motion.form
+            /* ── Form ──────────────────────────────────────────────── */
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              onSubmit={handleSubmit}
-              className="flex flex-col gap-8"
+              className="flex flex-col gap-10 max-w-lg w-full"
             >
-              <div className="flex flex-col gap-1.5">
-                <span className="font-sans text-[9px] tracking-[0.28em] uppercase" style={{ color: 'var(--muted-foreground)' }}>
+              {/* Header */}
+              <div className="flex flex-col gap-3">
+                <span
+                  className="font-sans text-[9px] tracking-[0.3em] uppercase"
+                  style={{ color: 'var(--accent)' }}
+                >
                   Tell us about your project
                 </span>
                 <h2
-                  className="font-cormorant text-3xl md:text-4xl"
-                  style={{ color: 'var(--foreground)', fontWeight: 500 }}
+                  className="font-cormorant leading-[1.0]"
+                  style={{ color: 'var(--foreground)', fontWeight: 500, fontSize: 'clamp(30px, 3.5vw, 48px)' }}
                 >
-                  We take on five<br /><em>projects a year.</em>
+                  We take on a
+                  <br />
+                  <em>discerning few</em> each year.
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <Field
-                  label="Your name"
-                  value={form.name}
-                  onChange={(v) => setForm({ ...form, name: v })}
-                  required
-                />
-                <Field
-                  label="Email address"
-                  type="email"
-                  value={form.email}
-                  onChange={(v) => setForm({ ...form, email: v })}
-                  required
-                />
-              </div>
+              {/* Form fields */}
+              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                {/* Row 1 */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <Field
+                    label="Your name"
+                    value={form.name}
+                    onChange={(v) => setForm({ ...form, name: v })}
+                    required
+                  />
+                  <Field
+                    label="Email address"
+                    type="email"
+                    value={form.email}
+                    onChange={(v) => setForm({ ...form, email: v })}
+                    required
+                  />
+                </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <SelectField
-                  label="Project type"
-                  value={form.projectType}
-                  onChange={(v) => setForm({ ...form, projectType: v })}
-                  options={['Residential', 'Commercial', 'Hospitality', 'Consultation']}
-                />
-                <SelectField
-                  label="Approximate budget"
-                  value={form.budget}
-                  onChange={(v) => setForm({ ...form, budget: v })}
-                  options={['₹25L – ₹50L', '₹50L – ₹1Cr', '₹1Cr – ₹3Cr', '₹3Cr+']}
-                />
-              </div>
+                {/* Row 2 */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <SelectField
+                    label="Project type"
+                    value={form.projectType}
+                    onChange={(v) => setForm({ ...form, projectType: v })}
+                    options={['Residential', 'Commercial', 'Hospitality', 'Consultation']}
+                  />
+                  <SelectField
+                    label="Approximate budget"
+                    value={form.budget}
+                    onChange={(v) => setForm({ ...form, budget: v })}
+                    options={['₹25L – ₹50L', '₹50L – ₹1Cr', '₹1Cr – ₹3Cr', '₹3Cr+']}
+                  />
+                </div>
 
-              <div className="flex flex-col gap-1.5">
-                <label
-                  className="font-sans text-[9px] tracking-[0.24em] uppercase"
-                  style={{ color: 'var(--muted-foreground)' }}
-                >
-                  Tell us more
-                </label>
-                <textarea
-                  rows={4}
-                  value={form.message}
-                  onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  placeholder="The space, your vision, anything else we should know..."
-                  className="resize-none px-4 py-3 font-cormorant text-base outline-none transition-colors duration-200"
-                  style={{
-                    backgroundColor: 'var(--input)',
-                    border: '1px solid var(--border)',
-                    color: 'var(--foreground)',
-                    borderRadius: '2px',
-                  }}
-                  onFocus={(e) => { e.target.style.borderColor = 'var(--accent)'; }}
-                  onBlur={(e) => { e.target.style.borderColor = 'var(--border)'; }}
-                />
-              </div>
+                {/* Textarea */}
+                <div className="flex flex-col gap-1.5">
+                  <label
+                    className="font-sans text-[9px] tracking-[0.24em] uppercase"
+                    style={{ color: 'var(--muted-foreground)' }}
+                  >
+                    Tell us more
+                  </label>
+                  <textarea
+                    rows={5}
+                    value={form.message}
+                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    placeholder="The space, your vision, anything else we should know..."
+                    className="resize-none px-4 py-3 font-cormorant text-base outline-none transition-colors duration-200"
+                    style={{
+                      backgroundColor: 'var(--input)',
+                      border: '1px solid var(--border)',
+                      color: 'var(--foreground)',
+                      borderRadius: '2px',
+                    }}
+                    onFocus={(e) => { e.target.style.borderColor = 'var(--accent)'; }}
+                    onBlur={(e) => { e.target.style.borderColor = 'var(--border)'; }}
+                  />
+                </div>
 
-              <button
-                type="submit"
-                className="group flex items-center justify-between px-7 py-4 font-sans text-[10px] tracking-[0.3em] uppercase transition-all duration-300"
-                style={{
-                  backgroundColor: 'var(--foreground)',
-                  color: 'var(--background)',
-                  border: '1px solid var(--foreground)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'var(--accent)';
-                  e.currentTarget.style.borderColor = 'var(--accent)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'var(--foreground)';
-                  e.currentTarget.style.borderColor = 'var(--foreground)';
-                }}
-              >
-                Send enquiry
-                <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </button>
-            </motion.form>
+                {/* Submit */}
+                <SubmitButton />
+              </form>
+            </motion.div>
           )}
         </div>
       </div>
     </main>
   );
 }
+
+/* ── Sub-components ───────────────────────────────────────────────────── */
 
 function Field({
   label,
@@ -239,7 +302,7 @@ function Field({
         value={value}
         required={required}
         onChange={(e) => onChange(e.target.value)}
-        className="px-4 py-3 font-cormorant text-base outline-none transition-colors duration-200"
+        className="px-4 py-3 font-cormorant text-base outline-none transition-colors duration-200 w-full"
         style={{
           backgroundColor: 'var(--input)',
           border: '1px solid var(--border)',
@@ -272,23 +335,59 @@ function SelectField({
       >
         {label}
       </label>
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="px-4 py-3 font-cormorant text-base outline-none transition-colors duration-200"
-        style={{
-          backgroundColor: 'var(--input)',
-          border: '1px solid var(--border)',
-          color: value ? 'var(--foreground)' : 'var(--muted-foreground)',
-          borderRadius: '2px',
-          appearance: 'none',
-        }}
-        onFocus={(e) => { e.target.style.borderColor = 'var(--accent)'; }}
-        onBlur={(e) => { e.target.style.borderColor = 'var(--border)'; }}
-      >
-        <option value="" disabled>Select...</option>
-        {options.map((o) => <option key={o} value={o}>{o}</option>)}
-      </select>
+      <div className="relative">
+        <select
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="px-4 py-3 font-cormorant text-base outline-none transition-colors duration-200 w-full appearance-none"
+          style={{
+            backgroundColor: 'var(--input)',
+            border: '1px solid var(--border)',
+            color: value ? 'var(--foreground)' : 'var(--muted-foreground)',
+            borderRadius: '2px',
+            cursor: 'pointer',
+          }}
+          onFocus={(e) => { e.target.style.borderColor = 'var(--accent)'; }}
+          onBlur={(e) => { e.target.style.borderColor = 'var(--border)'; }}
+        >
+          <option value="" disabled>Select...</option>
+          {options.map((o) => (
+            <option key={o} value={o}>{o}</option>
+          ))}
+        </select>
+        {/* Custom chevron */}
+        <div
+          className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"
+          style={{ color: 'var(--muted-foreground)' }}
+        >
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+            <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+          </svg>
+        </div>
+      </div>
     </div>
+  );
+}
+
+function SubmitButton() {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <button
+      type="submit"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="group flex items-center justify-between px-7 py-4 font-sans text-[10px] tracking-[0.32em] uppercase transition-all duration-300 w-full sm:w-auto"
+      style={{
+        backgroundColor: hovered ? 'var(--accent)' : 'var(--foreground)',
+        color: 'var(--background)',
+        border: `1px solid ${hovered ? 'var(--accent)' : 'var(--foreground)'}`,
+        borderRadius: '2px',
+      }}
+    >
+      Send enquiry
+      <ArrowUpRight
+        className="h-4 w-4 ml-6 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+      />
+    </button>
   );
 }

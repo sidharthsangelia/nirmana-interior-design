@@ -58,8 +58,8 @@ export default function CommercialPage() {
               className="font-cormorant leading-tight"
               style={{ color: 'var(--foreground)', fontWeight: 500, fontSize: 'clamp(32px, 3.8vw, 58px)' }}
             >
-              The most expensive mistake<br />
-              a brand can make is<br />
+              The most expensive mistake
+              a brand can make is
               <em>a forgettable space.</em>
             </h2>
             <p className="font-cormorant text-[17px] leading-relaxed" style={{ color: 'var(--foreground)', opacity: 0.65 }}>

@@ -24,11 +24,11 @@ export default function PressRecognition() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden"
+      className="relative w-full overflow-hidden "
       style={{
         backgroundColor: 'var(--background)',
-        paddingTop: 'clamp(4rem, 8vw, 7rem)',
-        paddingBottom: 'clamp(4rem, 8vw, 7rem)',
+        paddingTop: 'clamp(6rem, 10vw, 9rem)',
+        paddingBottom: 'clamp(6rem, 10vw, 9rem)',
         borderTop: '1px solid var(--border)',
         borderBottom: '1px solid var(--border)',
       }}
