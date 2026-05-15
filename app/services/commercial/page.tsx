@@ -127,7 +127,7 @@ export default function CommercialPage() {
                   {cap.title}
                 </h3>
                 <p
-                  className="font-cormorant text-[16px] italic leading-relaxed"
+                  className="font-sans text-[16px] italic leading-relaxed"
                   style={{ color: 'var(--muted-foreground)' }}
                 >
                   {cap.description}

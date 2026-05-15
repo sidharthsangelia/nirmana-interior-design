@@ -37,11 +37,10 @@ export default function ResidentialPage() {
               Residential Design
             </span>
             <h1
-              className="font-cormorant leading-[0.9] text-white"
+              className="font-cormorant leading-[1] text-white"
               style={{ fontWeight: 500, fontSize: 'clamp(52px, 7vw, 110px)' }}
             >
-              Homes that hold<br />
-              <em>you differently.</em>
+              Homes that hold you <em>differently.</em>
             </h1>
             <p className="font-cormorant text-xl italic text-white/60 leading-relaxed max-w-sm">
               Not a showroom. Not a stage. A space that softens the world outside its door.
@@ -58,8 +57,7 @@ export default function ResidentialPage() {
               className="font-cormorant leading-tight"
               style={{ color: 'var(--foreground)', fontWeight: 500, fontSize: 'clamp(32px, 3.5vw, 54px)' }}
             >
-              Your home is the only space that exists<br />
-              <em>entirely for you.</em>
+              Your home is the only space that exists <em>entirely for you.</em>
             </h2>
           </div>
           <div className="lg:col-span-7 lg:pt-3 flex flex-col gap-5">
@@ -107,7 +105,7 @@ export default function ResidentialPage() {
                 <h3 className="col-span-4 font-cormorant text-2xl md:text-3xl" style={{ color: 'var(--foreground)', fontWeight: 500 }}>
                   {item.title}
                 </h3>
-                <p className="col-span-7 font-cormorant text-[17px] italic leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
+                <p className="col-span-7 font-sans text-[17px] italic leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
                   {item.body}
                 </p>
               </motion.div>

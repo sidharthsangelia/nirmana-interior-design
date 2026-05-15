@@ -5,155 +5,115 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight, ArrowLeft } from 'lucide-react';
+import { caseStudies, caseStudyBySlug } from '@/lib/caseStudyData';
+ 
 
-// In a real app, this data would come from a CMS or database
-const caseStudyData: Record<string, {
-  title: string;
-  location: string;
-  year: string;
-  category: string;
-  area: string;
-  headline: string;
-  challenge: string;
-  approach: string;
-  outcome: string;
-  src: string;
-  gallery: string[];
-  credits: { role: string; name: string }[];
-}> = {
-  'mehta-residence': {
-    title: 'The Mehta Residence',
-    location: 'New Delhi',
-    year: '2024',
-    category: 'Residential',
-    area: '4,200 sq ft',
-    headline: 'Raw marble. Brutal calm.',
-    challenge: 'A family of five living in a house built for impression, not for living. The client wanted something that felt less like a magazine spread and more like an exhale. Previous contractors had created a space that looked expensive but felt empty — loud in the wrong way.',
-    approach: 'We stripped the palette to three materials: Calacatta marble, unlacquered brass, and aged Belgian linen. The spatial strategy began with removing two walls that fragmented the ground floor and replaced them with a single 9-metre slab of marble stretching from the entrance to the garden. Every decision was filtered through a single question: does it make you want to stay?',
-    outcome: 'A home that photographs magnificently but — more importantly — one that the family refuses to leave on weekends. The client\'s words: "For the first time in three years, we cancelled a holiday because we didn\'t want to leave."',
-    src: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=90',
-    gallery: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=85',
-      'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200&q=85',
-      'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1200&q=85',
-      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&q=85',
-    ],
-    credits: [
-      { role: 'Lead Designer', name: 'Arjun Mehta' },
-      { role: 'Project Designer', name: 'Priya Sharma' },
-      { role: 'Photography', name: 'Studio Lens, Mumbai' },
-    ],
-  },
-  'oblique-office': {
-    title: 'Oblique Office, Gurgaon',
-    location: 'Gurgaon',
-    year: '2024',
-    category: 'Commercial',
-    area: '11,000 sq ft',
-    headline: 'Where ambition lives.',
-    challenge: 'A fast-growing fintech firm in a generic Grade A office building. Their culture was anything but generic — flat hierarchy, speed, debate. The brief: make the space as sharp as the team. The previous office had been beige in every sense.',
-    approach: 'We used the floor plate\'s diagonal column grid as the conceptual driver — nothing in the space is orthogonal. Workstations angle toward natural light. Meeting rooms are triangular. The central collaboration spine runs diagonally across the entire floor. Raw concrete, warm oak, and a deliberate absence of acoustic panels keep the energy present and slightly electric.',
-    outcome: 'Talent acquisition improved measurably. Candidates began citing the office as a reason for accepting offers. The CEO reported that investor meetings had become more productive — something in the room raises the energy in the room.',
-    src: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=90',
-    gallery: [
-      'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&q=85',
-      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=85',
-      'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1200&q=85',
-      'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&q=85',
-    ],
-    credits: [
-      { role: 'Lead Designer', name: 'Karan Bose' },
-      { role: 'Creative Direction', name: 'Priya Sharma' },
-      { role: 'Photography', name: 'Nirmana Archive' },
-    ],
-  },
-  'villa-karun': {
-    title: 'Villa Karun',
-    location: 'Alibag, Maharashtra',
-    year: '2023',
-    category: 'Residential',
-    area: '6,800 sq ft',
-    headline: 'Stone. Sea. Silence.',
-    challenge: 'A coastal retreat that needed to breathe with the landscape rather than impose on it. The client\'s single instruction: "I want to feel the humidity and hear the waves from every room." Previous approaches had over-glazed the facade, creating a greenhouse.',
-    approach: 'Thickened walls, deep overhangs, and terrazzo floors that cool underfoot. No air-conditioning in the primary rooms by design — cross-ventilation through strategic apertures. Materials sourced within 300km. Colour palette taken from the rocks at low tide: grey, rust, cream, and the dark green of coastal lichen.',
-    outcome: 'A home that has been featured in three international publications and, more importantly, one its owner has not rented out once. He said: "Why would I give this to anyone else?"',
-    src: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=90',
-    gallery: [
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=85',
-      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=85',
-      'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1200&q=85',
-      'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200&q=85',
-    ],
-    credits: [
-      { role: 'Lead Designer', name: 'Arjun Mehta' },
-      { role: 'Project Designer', name: 'Karan Bose' },
-      { role: 'Photography', name: 'Dhruv Malik Photography' },
-    ],
-  },
-};
-
-export default function CaseStudyDetail({ params }: { params: Promise<{ slug: string }> }) {
+export default function CaseStudyDetail({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = React.use(params);
-  const cs = caseStudyData[slug];
+  const cs = caseStudyBySlug[slug];
 
+  // ── 404 state ─────────────────────────────────────────────────────────────
   if (!cs) {
     return (
-      <main className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--background)' }}>
-        <div className="text-center flex flex-col gap-4">
-          <h1 className="font-cormorant text-4xl" style={{ color: 'var(--foreground)' }}>Project not found.</h1>
-          <Link href="/case-study" className="font-sans text-[10px] tracking-[0.26em] uppercase" style={{ color: 'var(--accent)' }}>
-            ← Back to all work
+      <main
+        className="min-h-screen flex items-center justify-center"
+        style={{ backgroundColor: 'var(--background)' }}
+      >
+        <div className="text-center flex flex-col gap-5">
+          <h1
+            className="font-cormorant text-5xl"
+            style={{ color: 'var(--foreground)', fontWeight: 400 }}
+          >
+            Project not found.
+          </h1>
+          <Link
+            href="/case-study"
+            className="font-sans text-[9px] tracking-[0.28em] uppercase transition-opacity hover:opacity-50"
+            style={{ color: 'var(--accent)' }}
+          >
+            Back to all work
           </Link>
         </div>
       </main>
     );
   }
 
+  // ── Next project (wraps around) ───────────────────────────────────────────
+  const currentIndex = caseStudies.findIndex((c) => c.slug === slug);
+  const nextCs = caseStudies[(currentIndex + 1) % caseStudies.length];
+
   return (
     <main style={{ backgroundColor: 'var(--background)' }}>
 
-      {/* Hero image — full screen */}
+      {/* ── Full-screen hero ─────────────────────────────────────────── */}
       <section className="relative h-screen overflow-hidden">
         <Image
-          src={cs.src}
+          src={cs.heroSrc}
           alt={cs.title}
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%)' }} />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.65) 100%)',
+          }}
+        />
 
         <div className="relative h-full flex flex-col justify-end px-10 pb-20 lg:px-20 max-w-7xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col gap-5"
           >
-            <div className="flex gap-6">
-              <span className="font-sans text-[9px] tracking-[0.26em] uppercase text-white/50">{cs.category}</span>
-              <span className="font-sans text-[9px] tracking-[0.26em] uppercase text-white/50">{cs.location}</span>
-              <span className="font-sans text-[9px] tracking-[0.26em] uppercase text-white/50">{cs.year}</span>
-              <span className="font-sans text-[9px] tracking-[0.26em] uppercase text-white/50">{cs.area}</span>
+            {/* Meta row */}
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              {[cs.category, cs.location, cs.year, cs.area].map((m) => (
+                <span
+                  key={m}
+                  className="font-sans text-[9px] tracking-[0.28em] uppercase"
+                  style={{ color: 'rgba(255,255,255,0.45)' }}
+                >
+                  {m}
+                </span>
+              ))}
             </div>
+
+            {/* Title */}
             <h1
               className="font-cormorant leading-[0.88] text-white"
-              style={{ fontWeight: 500, fontSize: 'clamp(48px, 7vw, 110px)' }}
+              style={{
+                fontWeight: 500,
+                fontSize: 'clamp(44px, 6.5vw, 104px)',
+                letterSpacing: '-0.01em',
+              }}
             >
               {cs.title}
             </h1>
-            <p className="font-cormorant text-2xl italic text-white/60">
+
+            {/* Headline */}
+            <p
+              className="font-cormorant text-xl md:text-2xl italic leading-snug max-w-2xl"
+              style={{ color: 'rgba(255,255,255,0.55)' }}
+            >
               {cs.headline}
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Back link */}
+      {/* ── Back nav ─────────────────────────────────────────────────── */}
       <div className="px-10 lg:px-20 pt-12 max-w-7xl mx-auto">
         <Link
           href="/case-study"
-          className="inline-flex items-center gap-2 font-sans text-[9px] tracking-[0.26em] uppercase transition-opacity duration-200 hover:opacity-50"
+          className="inline-flex items-center gap-2 font-sans text-[9px] tracking-[0.28em] uppercase transition-opacity hover:opacity-40"
           style={{ color: 'var(--muted-foreground)' }}
         >
           <ArrowLeft className="h-3 w-3" />
@@ -161,78 +121,190 @@ export default function CaseStudyDetail({ params }: { params: Promise<{ slug: st
         </Link>
       </div>
 
-      {/* Body copy */}
+      {/* ── Body ─────────────────────────────────────────────────────── */}
       <section className="py-20 px-10 lg:px-20 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-          <div className="lg:col-span-7 flex flex-col gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
+
+          {/* Left: narrative ── */}
+          <div className="lg:col-span-7 flex flex-col gap-14">
             {[
-              { label: 'The challenge', body: cs.challenge },
+              { label: 'The situation', body: cs.challenge },
               { label: 'Our approach', body: cs.approach },
-              { label: 'The outcome', body: cs.outcome },
-            ].map((section) => (
+              { label: 'What followed', body: cs.outcome },
+            ].map((section, i) => (
               <motion.div
                 key={section.label}
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7 }}
-                className="flex flex-col gap-3"
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: i * 0.08, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+                className="flex flex-col gap-4"
               >
-                <span className="font-sans text-[9px] tracking-[0.3em] uppercase" style={{ color: 'var(--accent)' }}>
+                <span
+                  className="font-sans text-[9px] tracking-[0.32em] uppercase"
+                  style={{ color: 'var(--accent)' }}
+                >
                   {section.label}
                 </span>
-                <p className="font-cormorant text-[18px] md:text-xl leading-relaxed" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
+                <p
+                  className="font-cormorant leading-relaxed"
+                  style={{
+                    color: 'var(--foreground)',
+                    opacity: 0.82,
+                    fontSize: 'clamp(17px, 1.5vw, 20px)',
+                  }}
+                >
                   {section.body}
                 </p>
               </motion.div>
             ))}
+
+            {/* Client quote */}
+            <motion.blockquote
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.75 }}
+              className="flex flex-col gap-4 py-8 px-8"
+              style={{ borderLeft: '1px solid var(--accent)' }}
+            >
+              <p
+                className="font-cormorant text-2xl md:text-3xl italic leading-snug"
+                style={{ color: 'var(--foreground)' }}
+              >
+                "{cs.clientQuote}"
+              </p>
+              <cite
+                className="font-sans text-[9px] tracking-[0.26em] uppercase not-italic"
+                style={{ color: 'var(--muted-foreground)' }}
+              >
+                {cs.clientQuoteAttrib}
+              </cite>
+            </motion.blockquote>
           </div>
 
-          {/* Credits sidebar */}
-          <div className="lg:col-span-5 lg:col-start-9 flex flex-col gap-8 lg:pt-6">
+          {/* Right: sidebar ── */}
+          <div className="lg:col-span-4 lg:col-start-9 flex flex-col gap-8 lg:pt-2">
+
+            {/* Credits box */}
             <div
-              className="p-8 flex flex-col gap-6"
+              className="flex flex-col gap-0"
               style={{ border: '1px solid var(--border)' }}
             >
-              <h3 className="font-sans text-[9px] tracking-[0.3em] uppercase" style={{ color: 'var(--muted-foreground)' }}>
-                Project credits
-              </h3>
-              {cs.credits.map((credit) => (
-                <div key={credit.role} className="flex flex-col gap-0.5">
-                  <span className="font-sans text-[9px] tracking-[0.2em] uppercase" style={{ color: 'var(--muted-foreground)' }}>
+              <div
+                className="px-7 py-4"
+                style={{ borderBottom: '1px solid var(--border)' }}
+              >
+                <span
+                  className="font-sans text-[9px] tracking-[0.32em] uppercase"
+                  style={{ color: 'var(--muted-foreground)' }}
+                >
+                  Project credits
+                </span>
+              </div>
+              {cs.credits.map((credit, i) => (
+                <div
+                  key={credit.role}
+                  className="flex flex-col gap-0.5 px-7 py-4"
+                  style={{
+                    borderBottom:
+                      i < cs.credits.length - 1 ? '1px solid var(--border)' : 'none',
+                  }}
+                >
+                  <span
+                    className="font-sans text-[8px] tracking-[0.22em] uppercase"
+                    style={{ color: 'var(--muted-foreground)' }}
+                  >
                     {credit.role}
                   </span>
-                  <span className="font-cormorant text-[17px]" style={{ color: 'var(--foreground)', fontWeight: 400 }}>
+                  <span
+                    className="font-cormorant text-[18px]"
+                    style={{ color: 'var(--foreground)', fontWeight: 400 }}
+                  >
                     {credit.name}
                   </span>
                 </div>
               ))}
             </div>
 
+            {/* Project specs */}
+            <div
+              className="flex flex-col gap-0"
+              style={{ border: '1px solid var(--border)' }}
+            >
+              <div
+                className="px-7 py-4"
+                style={{ borderBottom: '1px solid var(--border)' }}
+              >
+                <span
+                  className="font-sans text-[9px] tracking-[0.32em] uppercase"
+                  style={{ color: 'var(--muted-foreground)' }}
+                >
+                  Project details
+                </span>
+              </div>
+              {[
+                { label: 'Location', value: cs.location },
+                { label: 'Year', value: cs.year },
+                { label: 'Category', value: cs.category },
+                { label: 'Area', value: cs.area },
+              ].map((detail, i, arr) => (
+                <div
+                  key={detail.label}
+                  className="flex items-center justify-between px-7 py-4"
+                  style={{
+                    borderBottom:
+                      i < arr.length - 1 ? '1px solid var(--border)' : 'none',
+                  }}
+                >
+                  <span
+                    className="font-sans text-[8px] tracking-[0.22em] uppercase"
+                    style={{ color: 'var(--muted-foreground)' }}
+                  >
+                    {detail.label}
+                  </span>
+                  <span
+                    className="font-cormorant text-base"
+                    style={{ color: 'var(--foreground)' }}
+                  >
+                    {detail.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA */}
             <Link
               href="/contact"
-              className="group flex items-center justify-between px-7 py-4 font-sans text-[10px] tracking-[0.26em] uppercase transition-all duration-200"
-              style={{ backgroundColor: 'var(--foreground)', color: 'var(--background)' }}
-              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--foreground)'; }}
+              className="group flex items-center justify-between px-7 py-4 font-sans text-[10px] tracking-[0.28em] uppercase transition-all duration-200"
+              style={{
+                backgroundColor: 'var(--foreground)',
+                color: 'var(--background)',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--accent)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--foreground)';
+              }}
             >
-              Start your project
+              Begin a commission
               <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Gallery */}
+      {/* ── Gallery ──────────────────────────────────────────────────── */}
       <section className="pb-32 px-10 lg:px-20 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {cs.gallery.map((src, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.7 }}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ delay: i * 0.08, duration: 0.75 }}
               className={`relative overflow-hidden ${i === 0 ? 'md:col-span-2' : ''}`}
               style={{
                 aspectRatio: i === 0 ? '16/7' : '4/3',
@@ -241,9 +313,9 @@ export default function CaseStudyDetail({ params }: { params: Promise<{ slug: st
             >
               <Image
                 src={src}
-                alt={`${cs.title} — image ${i + 1}`}
+                alt={`${cs.title} — view ${i + 1}`}
                 fill
-                className="object-cover hover:scale-[1.03] transition-transform duration-700"
+                className="object-cover transition-transform duration-700 hover:scale-[1.03]"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             </motion.div>
@@ -251,21 +323,76 @@ export default function CaseStudyDetail({ params }: { params: Promise<{ slug: st
         </div>
       </section>
 
-      {/* Next project hint */}
+      {/* ── Next project ─────────────────────────────────────────────── */}
       <section
-        className="py-16 px-10 lg:px-20 flex items-center justify-between"
+        className="relative overflow-hidden"
         style={{ borderTop: '1px solid var(--border)' }}
       >
-        <span className="font-sans text-[9px] tracking-[0.3em] uppercase" style={{ color: 'var(--muted-foreground)' }}>
-          More work
-        </span>
         <Link
-          href="/work"
-          className="group inline-flex items-center gap-2 font-cormorant text-xl transition-opacity duration-200 hover:opacity-50"
-          style={{ color: 'var(--foreground)', fontWeight: 400 }}
+          href={`/case-study/${nextCs.slug}`}
+          className="group grid grid-cols-1 lg:grid-cols-2"
         >
-          View all projects
-          <ArrowUpRight className="h-4 w-4" />
+          {/* Text side */}
+          <div className="flex flex-col justify-between gap-8 px-10 lg:px-20 py-16 lg:py-20">
+            <div className="flex flex-col gap-2">
+              <span
+                className="font-sans text-[9px] tracking-[0.32em] uppercase"
+                style={{ color: 'var(--muted-foreground)' }}
+              >
+                Next project
+              </span>
+              <span
+                className="font-sans text-[9px] tracking-[0.28em] uppercase"
+                style={{ color: 'var(--muted-foreground)' }}
+              >
+                {nextCs.location} &nbsp;·&nbsp; {nextCs.year}
+              </span>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <h3
+                className="font-cormorant leading-[0.9]"
+                style={{
+                  color: 'var(--foreground)',
+                  fontWeight: 500,
+                  fontSize: 'clamp(36px, 4vw, 64px)',
+                }}
+              >
+                {nextCs.title}
+              </h3>
+              <p
+                className="font-cormorant text-lg italic"
+                style={{ color: 'var(--muted-foreground)' }}
+              >
+                {nextCs.tag}
+              </p>
+            </div>
+
+            <span
+              className="inline-flex items-center gap-2 font-sans text-[9px] tracking-[0.28em] uppercase transition-opacity group-hover:opacity-40 w-fit"
+              style={{ color: 'var(--accent)' }}
+            >
+              View project
+              <ArrowUpRight className="h-3 w-3" />
+            </span>
+          </div>
+
+          {/* Image side */}
+          <div className="relative overflow-hidden" style={{ minHeight: '360px' }}>
+            <motion.div
+              className="absolute inset-0"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Image
+                src={nextCs.heroSrc}
+                alt={nextCs.title}
+                fill
+                className="object-cover"
+                sizes="50vw"
+              />
+            </motion.div>
+          </div>
         </Link>
       </section>
     </main>

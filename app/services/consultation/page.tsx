@@ -100,7 +100,7 @@ export default function ConsultationPage() {
                 </span>
               </div>
               <div className="lg:col-span-7 flex flex-col gap-4">
-                <p className="font-cormorant text-[17px] leading-relaxed" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
+                <p className="font-sans text-[17px] leading-relaxed" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
                   {fmt.description}
                 </p>
                 <p className="font-sans text-[10px] tracking-[0.14em]" style={{ color: 'var(--muted-foreground)' }}>
