@@ -1,3 +1,4 @@
+import CommissionCTA from "@/components/ComissionCta";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import Hero from "@/components/Hero";
 import Manifesto from "@/components/Manifesto";
@@ -31,6 +32,7 @@ export default function Home() {
           </Button>
         </div>
       </section>
+      <CommissionCTA/>
  </main>
   );
 }
