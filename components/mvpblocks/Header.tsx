@@ -61,12 +61,6 @@ export default function Header() {
               >
                 Nirmana Studio
               </span>
-              {/* <motion.span
-                className="block h-px mt-0.5 bg-white/40"
-                initial={{ scaleX: 0, originX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.9, duration: 0.7, ease: 'easeOut' }}
-              /> */}
             </Link>
 
             {/* Desktop Nav */}
@@ -150,7 +144,7 @@ export default function Header() {
               {/* Divider */}
               <div className="h-3.5 w-px opacity-40" style={{ backgroundColor: 'var(--foreground)' }} />
 
-              {/* Nav */}
+              {/* Desktop Nav */}
               <nav className="hidden items-center gap-7 lg:flex">
                 {navItems.map((item) => (
                   <div
@@ -178,6 +172,16 @@ export default function Header() {
                   </div>
                 ))}
               </nav>
+
+              {/* Mobile hamburger — pill state */}
+              <motion.button
+                className="rounded p-1 transition-opacity duration-200 hover:opacity-50 lg:hidden"
+                style={{ color: 'var(--foreground)' }}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                whileTap={{ scale: 0.93 }}
+              >
+                {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+              </motion.button>
             </div>
           </motion.div>
         )}
