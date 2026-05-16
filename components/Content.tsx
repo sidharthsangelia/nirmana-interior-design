@@ -8,7 +8,8 @@ import { ArrowUpRight } from 'lucide-react';
 export default function Content() {
   return (
     <div
-      className="h-full w-full flex flex-col justify-end gap-12 px-10 py-10 md:px-16 md:py-12"
+      // Reduced px/py on mobile, scales back up at md and lg
+      className="h-full w-full flex flex-col justify-end gap-8 md:gap-12 px-6 py-8 md:px-10 md:py-10 lg:px-16 lg:py-12"
       style={{ backgroundColor: 'var(--foreground)' }}
     >
       <Section1 />
@@ -20,8 +21,9 @@ export default function Content() {
 /* ── Top section: nav + tagline ── */
 const Section1 = () => {
   return (
-    <div className="flex flex-col gap-12 md:flex-row md:justify-between md:items-start">
-      
+    // Tighter gap on mobile since content stacks vertically
+    <div className="flex flex-col gap-8 md:gap-12 md:flex-row md:justify-between md:items-start">
+
       {/* Studio name + tagline */}
       <div className="flex flex-col gap-4 max-w-xs">
         <span
@@ -86,7 +88,7 @@ const Section2 = () => {
         </h2>
 
         {/* Bottom right meta */}
-        <div className="flex flex-col items-end gap-1.5 pb-1">
+        <div className="hidden md:flex flex-col items-end gap-1.5 pb-1 sm:">
           <p
             className="font-sans text-[9px] tracking-[0.22em] uppercase"
             style={{ color: 'color-mix(in oklch, var(--background) 30%, transparent)' }}
@@ -128,7 +130,8 @@ const Nav = () => {
   ];
 
   return (
-    <div className="flex gap-16 shrink-0">
+    // Tighter gap between nav columns on mobile
+    <div className="flex gap-8 md:gap-16 shrink-0">
       {cols.map((col) => (
         <div key={col.heading} className="flex flex-col gap-2.5">
           <h3
@@ -159,8 +162,8 @@ const FooterLink = ({
   <Link
     href={href}
     prefetch={false}
-    className="group inline-flex items-center gap-1 font-cormorant text-[15px] tracking-wide transition-opacity duration-200 hover:opacity-50"
-    style={{ color: 'var(--background)', fontWeight: 400 }}
+    className="group inline-flex items-center gap-1 font-sans text-[15px] tracking-wide transition-opacity duration-200 hover:opacity-50"
+    style={{ color: 'var(--background)', fontWeight: 200  }}
   >
     {children}
     <ArrowUpRight
